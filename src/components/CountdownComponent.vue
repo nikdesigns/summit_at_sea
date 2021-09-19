@@ -1,10 +1,8 @@
 <template>
-  <h2>Sneak</h2>
+  <h2>Some text</h2>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style>
-</style>

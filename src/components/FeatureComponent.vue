@@ -171,111 +171,168 @@
       </svg>
 
       <div class="relative mt-12 sm:mt-16 lg:mt-24">
-        <div
-          class="
-            lg:grid lg:grid-flow-row-dense lg:grid-cols-2
-            lg:gap-8
-            lg:items-center
-          "
-        >
-          <div class="lg:col-start-2">
-            <h3
-              class="
-                text-2xl
-                font-extrabold
-                text-gray-900
-                tracking-tight
-                sm:text-3xl
-              "
+        <div class="lg:grid lg:grid-flow-row-dense lg:grid-cols-3 lg:gap-4">
+          <TabGroup vertical>
+            <TabList
+              class="mt-10 ml-7 -mx-4 relative lg:mt-0 lg:col-start-1 max-w-xs"
             >
-              Always in the loop
-            </h3>
-            <p class="mt-3 text-lg text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit
-              ex obcaecati natus eligendi delectus, cum deleniti sunt in labore
-              nihil quod quibusdam expedita nemo.
-            </p>
-
-            <dl class="mt-10 space-y-10">
-              <div
-                v-for="item in communicationFeatures"
-                :key="item.id"
-                class="relative"
-              >
-                <dt>
-                  <div
-                    class="
-                      absolute
-                      flex
-                      items-center
-                      justify-center
-                      h-12
-                      w-12
-                      rounded-md
-                      bg-indigo-500
-                      text-white
-                    "
-                  >
-                    <component
-                      :is="item.icon"
-                      class="h-6 w-6"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <p class="ml-16 text-lg leading-6 font-medium text-gray-900">
-                    {{ item.name }}
-                  </p>
-                </dt>
-                <dd class="mt-2 ml-16 text-base text-gray-500">
-                  {{ item.description }}
-                </dd>
-              </div>
-            </dl>
-          </div>
-
-          <div class="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1">
-            <svg
-              class="
-                absolute
-                left-1/2
-                transform
-                -translate-x-1/2
-                translate-y-16
-                lg:hidden
-              "
-              width="784"
-              height="404"
-              fill="none"
-              viewBox="0 0 784 404"
-              aria-hidden="true"
-            >
-              <defs>
-                <pattern
-                  id="e80155a9-dfde-425a-b5ea-1f6fadd20131"
-                  x="0"
-                  y="0"
-                  width="20"
-                  height="20"
-                  patternUnits="userSpaceOnUse"
+              <Tab v-slot="{ selected }" as="template">
+                <button
+                  :class="[
+                    selected
+                      ? 'bg-blue-500 text-white'
+                      : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700',
+                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md',
+                  ]"
                 >
-                  <rect
-                    x="0"
-                    y="0"
-                    width="4"
-                    height="4"
-                    class="text-gray-200"
-                    fill="currentColor"
-                  />
-                </pattern>
-              </defs>
-              <rect
-                width="784"
-                height="404"
-                fill="url(#e80155a9-dfde-425a-b5ea-1f6fadd20131)"
-              />
-            </svg>
-            <sneak-component />
-          </div>
+                  Shop Presentations
+                </button>
+              </Tab>
+              <Tab v-slot="{ selected }" as="template">
+                <button
+                  :class="[
+                    selected
+                      ? 'bg-blue-500 text-white'
+                      : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700',
+                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md',
+                  ]"
+                >
+                  Follow-up Meetings
+                </button>
+              </Tab>
+              <Tab v-slot="{ selected }" as="template">
+                <button
+                  :class="[
+                    selected
+                      ? 'bg-blue-500 text-white'
+                      : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700',
+                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md',
+                  ]"
+                >
+                  Relationship Building
+                </button>
+              </Tab>
+              <Tab v-slot="{ selected }" as="template">
+                <button
+                  :class="[
+                    selected
+                      ? 'bg-blue-500 text-white'
+                      : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700',
+                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md',
+                  ]"
+                >
+                  Top Shop Awards
+                </button>
+              </Tab>
+            </TabList>
+            <TabPanels class="lg:col-start-2 col-span-2">
+              <TabPanel
+                ><h3
+                  class="
+                    text-2xl
+                    font-extrabold
+                    text-gray-900
+                    tracking-tight
+                    sm:text-3xl
+                  "
+                >
+                  Shop Presentations
+                </h3>
+                <p class="mt-3 text-lg text-gray-500">
+                  Imagine having an exclusive meeting between just you and 50
+                  airline maintenance representatives. How awesome would that
+                  be? Well, that's exactly what our Shop Presentations event is
+                  built to do. You'll be given the opportunity to give an
+                  exclusive, five-minute presentation, to more than 50 airline
+                  representative all at the same time. To take it a step
+                  further, once you've delivered your presentation you'll
+                  receive immediate feedback from all airline representatives
+                  via a mobile app built to inform you about which airlines are
+                  interested in what you have to offer. This is a must do event
+                  for anyone looking to expand their airline customer base.
+                </p></TabPanel
+              >
+              <TabPanel
+                ><h3
+                  class="
+                    text-2xl
+                    font-extrabold
+                    text-gray-900
+                    tracking-tight
+                    sm:text-3xl
+                  "
+                >
+                  Follow-Up Meetings
+                </h3>
+                <p class="mt-3 text-lg text-gray-500">
+                  Imagine attending a conference, where you could present to 50
+                  airline maintenance representatives all at the same time, then
+                  receive immediate feedback from all those airlines as to their
+                  level of interest, and finally do a follow-up meeting later
+                  the afternoon to meet with the airlines that expressed
+                  interest in what you have to offer. Well, that's exactly how
+                  Summit at Sea's follow-up meetings will work.
+                </p>
+                <p class="mt-3 text-lg text-gray-500">
+                  After each shop presentation the airlines will provide each
+                  repair center with immediate feedback via our mobile app,
+                  showing their level of interest in the topic that was
+                  presented. Then later in the afternoon, all repair centers
+                  that gave presentations that day will then have the
+                  opportunity to attend a follow-up meeting to discuss things in
+                  more detail with the specific airlines that expressed interest
+                  in their presentation.
+                </p></TabPanel
+              >
+              <TabPanel
+                ><h3
+                  class="
+                    text-2xl
+                    font-extrabold
+                    text-gray-900
+                    tracking-tight
+                    sm:text-3xl
+                  "
+                >
+                  Relationship Building
+                </h3>
+                <p class="mt-3 text-lg text-gray-500">
+                  Studies have shown that shared experiences hold the key to
+                  developing deeper and more meaningful relationships, and what
+                  better way to do that than to travel together and participate
+                  in fun activities together. Summit at Sea was designed to give
+                  attendees a unique environment to build relationships outside
+                  of the typical "hotel conference" experience. From poker games
+                  and mini-golf tournaments to zip-lining and swimming with
+                  dolphins, you'll have endless opportunities to rub shoulders
+                  and build memories with friends, clients, and future
+                  customers.
+                </p></TabPanel
+              >
+              <TabPanel
+                ><h3
+                  class="
+                    text-2xl
+                    font-extrabold
+                    text-gray-900
+                    tracking-tight
+                    sm:text-3xl
+                  "
+                >
+                  Top Shop Awards
+                </h3>
+                <p class="mt-3 text-lg text-gray-500">
+                  The 145's annual Top Shop Awards is one of the most
+                  anticipated events in aviation each year, and 2022 will be no
+                  exception. Immediately following the Orientation Meeting, we
+                  will be presenting the awards to all the Top Shop winners.
+                  Note: Winners will be announced in February, however the
+                  actual presentation of the acrylic awards will be presented
+                  during Summit at Sea.
+                </p></TabPanel
+              >
+            </TabPanels>
+          </TabGroup>
         </div>
       </div>
     </div>
@@ -283,6 +340,7 @@
 </template>
 
 <script>
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 import {
   AnnotationIcon,
   GlobeAltIcon,
@@ -290,7 +348,6 @@ import {
   MailIcon,
   ScaleIcon,
 } from "@heroicons/vue/outline";
-import SneakComponent from "./SneakComponent.vue";
 
 const transferFeatures = [
   {
@@ -331,13 +388,46 @@ const communicationFeatures = [
     icon: MailIcon,
   },
 ];
+const navigation = [
+  {
+    name: "Shop Presentation",
+    description: "Asperiores est autem.",
+    href: "#",
+    current: true,
+  },
+  {
+    name: "Follow-up Meetings",
+    description: "Quas eaque culpa sed voluptatibus laboriosam debitis qui.",
+    href: "#",
+    current: false,
+  },
+  {
+    name: "Relationship Building",
+    description: "Consequuntur ipsa inventore et qui.",
+    href: "#",
+    current: false,
+  },
+  {
+    name: "Topshop Awards",
+    description: "Adipisci minus occaecati hic dolorem beatae et.",
+    href: "#",
+    current: false,
+  },
+];
 
 export default {
-  components: { SneakComponent },
+  components: {
+    TabGroup,
+    TabList,
+    Tab,
+    TabPanels,
+    TabPanel,
+  },
   setup() {
     return {
       transferFeatures,
       communicationFeatures,
+      navigation,
     };
   },
 };
