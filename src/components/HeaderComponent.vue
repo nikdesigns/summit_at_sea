@@ -415,44 +415,94 @@
             </transition>
           </Popover>
         </PopoverGroup>
-        <div
-          v-if="user"
-          class="hidden md:flex items-center justify-end md:flex-1 lg:w-0"
-        >
-          <a
-            href="#"
-            class="
-              whitespace-nowrap
-              text-base
-              font-medium
-              text-gray-500
-              hover:text-gray-900
-            "
+        <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+          <div class="" v-if="!user">
+            <a
+              href="#"
+              class="
+                whitespace-nowrap
+                text-base
+                font-medium
+                text-gray-500
+                hover:text-gray-900
+              "
+            >
+              Sign in
+            </a>
+            <a
+              href="/register"
+              class="
+                ml-8
+                whitespace-nowrap
+                inline-flex
+                items-center
+                justify-center
+                px-4
+                py-2
+                border border-transparent
+                rounded-md
+                shadow-sm
+                text-base
+                font-medium
+                text-white
+                bg-blue-600
+                hover:bg-blue-700
+              "
+            >
+              Sign up
+            </a>
+          </div>
+          <div
+            v-else
+            class="hidden md:flex items-center justify-end md:flex-1 lg:w-0"
           >
-            Sign in
-          </a>
-          <a
-            href="/register"
-            class="
-              ml-8
-              whitespace-nowrap
-              inline-flex
-              items-center
-              justify-center
-              px-4
-              py-2
-              border border-transparent
-              rounded-md
-              shadow-sm
-              text-base
-              font-medium
-              text-white
-              bg-blue-600
-              hover:bg-blue-700
-            "
-          >
-            Sign up
-          </a>
+            <div class="flex-1 flex items-center justify-end">
+              <div class="flex items-center lg:ml-8">
+                <div class="flex space-x-8">
+                  <div class="flex">
+                    <a
+                      href="#"
+                      class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                    >
+                      <span class="sr-only">Account</span>
+                      <UserIcon class="w-6 h-6" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
+
+                <span
+                  class="mx-4 h-6 w-px bg-gray-200 lg:mx-6"
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="flow-root">
+            <a href="#" class="group -m-2 p-2 flex items-center">
+              <ShoppingBagIcon
+                :class="[!user ? 'ml-5' : '']"
+                class="
+                  flex-shrink-0
+                  h-6
+                  w-6
+                  text-gray-400
+                  group-hover:text-gray-500
+                "
+                aria-hidden="true"
+              />
+              <span
+                class="
+                  ml-2
+                  text-sm
+                  font-medium
+                  text-gray-700
+                  group-hover:text-gray-800
+                "
+                >0</span
+              >
+              <span class="sr-only">items in cart, view bag</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -633,6 +683,8 @@ import {
   BanIcon,
   SunIcon,
   PhotographIcon,
+  UserIcon,
+  ShoppingBagIcon,
 } from "@heroicons/vue/outline";
 import { ChevronDownIcon } from "@heroicons/vue/solid";
 
@@ -765,6 +817,8 @@ export default {
     BanIcon,
     SunIcon,
     PhotographIcon,
+    UserIcon,
+    ShoppingBagIcon,
   },
   setup() {
     return {
