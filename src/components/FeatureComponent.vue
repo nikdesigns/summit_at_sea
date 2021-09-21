@@ -174,7 +174,16 @@
         <div class="lg:grid lg:grid-flow-row-dense lg:grid-cols-3 lg:gap-4">
           <TabGroup vertical>
             <TabList
-              class="mt-10 ml-7 -mx-4 relative lg:mt-0 lg:col-start-1 max-w-xs"
+              class="
+                mt-10
+                lg:ml-7
+                -mx-4
+                relative
+                lg:mt-0
+                lg:col-start-1
+                max-w-xs
+                sm:mb-8
+              "
             >
               <Tab v-slot="{ selected }" as="template">
                 <button
@@ -182,7 +191,7 @@
                     selected
                       ? 'bg-blue-500 text-white'
                       : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700',
-                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md',
+                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md sm:w-full',
                   ]"
                 >
                   Shop Presentations
@@ -194,7 +203,7 @@
                     selected
                       ? 'bg-blue-500 text-white'
                       : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700',
-                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md',
+                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md sm:w-full',
                   ]"
                 >
                   Follow-up Meetings
@@ -206,7 +215,7 @@
                     selected
                       ? 'bg-blue-500 text-white'
                       : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700',
-                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md',
+                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md sm:w-full',
                   ]"
                 >
                   Relationship Building
@@ -218,7 +227,7 @@
                     selected
                       ? 'bg-blue-500 text-white'
                       : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700',
-                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md',
+                    'flex items-center px-3 pr-20 py-4 text-base font-medium rounded-md sm:w-full',
                   ]"
                 >
                   Top Shop Awards

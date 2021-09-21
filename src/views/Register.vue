@@ -1,297 +1,118 @@
-<!--
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
 <template>
   <header-component></header-component>
-  <div class="relative bg-gray-100 py-16 sm:py-6 lg:py-14">
+  <div class="relative bg-gray-100 py-16 sm:py-6 lg:py-8">
     <div
-      class="
-        mx-auto
-        max-w-md
-        px-4
-        text-center
-        sm:max-w-3xl
-        sm:px-6
-        lg:px-8
-        lg:max-w-7xl
-      "
+      class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl"
     >
       <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
-        <aside class="py-6 px-2 sm:px-6 lg:py-0 lg:px-0 lg:col-span-3">
-          <nav class="space-y-1">
-            <a
-              v-for="item in navigation"
-              :key="item.name"
-              :href="item.href"
-              :class="[
-                item.current
-                  ? 'bg-gray-50 text-indigo-700 hover:text-indigo-700 hover:bg-white'
-                  : 'text-gray-900 hover:text-gray-900 hover:bg-gray-50',
-                'group rounded-md px-3 py-2 flex items-center text-sm font-medium',
-              ]"
-              :aria-current="item.current ? 'page' : undefined"
-            >
-              <component
-                :is="item.icon"
-                :class="[
-                  item.current
-                    ? 'text-indigo-500 group-hover:text-indigo-500'
-                    : 'text-gray-400 group-hover:text-gray-500',
-                  'flex-shrink-0 -ml-1 mr-3 h-6 w-6',
-                ]"
-                aria-hidden="true"
-              />
-              <span class="truncate">
-                {{ item.name }}
-              </span>
-            </a>
+        <aside
+          class="
+            py-6
+            px-2
+            sm:px-6
+            lg:py-0
+            lg:px-0
+            lg:col-span-3
+            bg-white
+            shadow
+            sm:rounded-md
+            sm:overflow-hidden
+          "
+        >
+          <nav class="flex-1 px-2 space-y- pt-8" aria-label="Sidebar">
+            <template v-for="item in navigation" :key="item.name">
+              <div v-if="!item.children">
+                <a
+                  href="#"
+                  :class="[
+                    item.current
+                      ? 'bg-gray-100 text-gray-900'
+                      : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                    'group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md',
+                  ]"
+                >
+                  <component
+                    :is="item.icon"
+                    :class="[
+                      item.current
+                        ? 'text-gray-500'
+                        : 'text-gray-400 group-hover:text-gray-500',
+                      'mr-3 flex-shrink-0 h-6 w-6',
+                    ]"
+                    aria-hidden="true"
+                  />
+                  {{ item.name }}
+                </a>
+              </div>
+              <Disclosure as="div" v-else class="space-y-1" v-slot="{ open }">
+                <DisclosureButton
+                  :class="[
+                    item.current
+                      ? 'bg-gray-100 text-gray-900'
+                      : 'bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                    'group w-full flex items-center pl-2 pr-1 py-2 text-left text-sm font-medium rounded-md ',
+                  ]"
+                >
+                  <component
+                    :is="item.icon"
+                    class="
+                      mr-3
+                      flex-shrink-0
+                      h-6
+                      w-6
+                      text-gray-400
+                      group-hover:text-gray-500
+                    "
+                    aria-hidden="true"
+                  />
+                  <span class="flex-1">
+                    {{ item.name }}
+                  </span>
+                  <svg
+                    :class="[
+                      open ? 'text-gray-400 rotate-90' : 'text-gray-300',
+                      'ml-3 flex-shrink-0 h-5 w-5 transform group-hover:text-gray-400 transition-colors ease-in-out duration-150',
+                    ]"
+                    viewBox="0 0 20 20"
+                    aria-hidden="true"
+                  >
+                    <path d="M6 6L14 10L6 14V6Z" fill="currentColor" />
+                  </svg>
+                </DisclosureButton>
+                <DisclosurePanel class="space-y-1">
+                  <a
+                    v-for="subItem in item.children"
+                    :key="subItem.name"
+                    :href="subItem.href"
+                    class="
+                      group
+                      w-full
+                      flex
+                      items-center
+                      pl-11
+                      pr-2
+                      py-2
+                      text-sm
+                      font-medium
+                      text-gray-600
+                      rounded-md
+                      hover:text-gray-900
+                      hover:bg-gray-50
+                    "
+                  >
+                    {{ subItem.name }}
+                  </a>
+                </DisclosurePanel>
+              </Disclosure>
+            </template>
           </nav>
         </aside>
-
         <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
-          <form action="#" method="POST">
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
-              <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
-                <div>
-                  <h3 class="text-lg leading-6 font-medium text-gray-900">
-                    Profile
-                  </h3>
-                  <p class="mt-1 text-sm text-gray-500">
-                    This information will be displayed publicly so be careful
-                    what you share.
-                  </p>
-                </div>
-
-                <div class="grid grid-cols-3 gap-6">
-                  <div class="col-span-3 sm:col-span-2">
-                    <label
-                      for="company-website"
-                      class="block text-sm font-medium text-gray-700"
-                    >
-                      Username
-                    </label>
-                    <div class="mt-1 rounded-md shadow-sm flex">
-                      <span
-                        class="
-                          bg-gray-50
-                          border border-r-0 border-gray-300
-                          rounded-l-md
-                          px-3
-                          inline-flex
-                          items-center
-                          text-gray-500
-                          sm:text-sm
-                        "
-                      >
-                        workcation.com/
-                      </span>
-                      <input
-                        type="text"
-                        name="username"
-                        id="username"
-                        autocomplete="username"
-                        class="
-                          focus:ring-indigo-500
-                          focus:border-indigo-500
-                          flex-grow
-                          block
-                          w-full
-                          min-w-0
-                          rounded-none rounded-r-md
-                          sm:text-sm
-                          border-gray-300
-                        "
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-span-3">
-                    <label
-                      for="about"
-                      class="block text-sm font-medium text-gray-700"
-                    >
-                      About
-                    </label>
-                    <div class="mt-1">
-                      <textarea
-                        id="about"
-                        name="about"
-                        rows="3"
-                        class="
-                          shadow-sm
-                          focus:ring-indigo-500
-                          focus:border-indigo-500
-                          mt-1
-                          block
-                          w-full
-                          sm:text-sm
-                          border border-gray-300
-                          rounded-md
-                        "
-                        placeholder="you@example.com"
-                      />
-                    </div>
-                    <p class="mt-2 text-sm text-gray-500">
-                      Brief description for your profile. URLs are hyperlinked.
-                    </p>
-                  </div>
-
-                  <div class="col-span-3">
-                    <label class="block text-sm font-medium text-gray-700">
-                      Photo
-                    </label>
-                    <div class="mt-1 flex items-center">
-                      <span
-                        class="
-                          inline-block
-                          bg-gray-100
-                          rounded-full
-                          overflow-hidden
-                          h-12
-                          w-12
-                        "
-                      >
-                        <svg
-                          class="h-full w-full text-gray-300"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"
-                          />
-                        </svg>
-                      </span>
-                      <button
-                        type="button"
-                        class="
-                          ml-5
-                          bg-white
-                          border border-gray-300
-                          rounded-md
-                          shadow-sm
-                          py-2
-                          px-3
-                          text-sm
-                          leading-4
-                          font-medium
-                          text-gray-700
-                          hover:bg-gray-50
-                          focus:outline-none
-                          focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-                        "
-                      >
-                        Change
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="col-span-3">
-                    <label class="block text-sm font-medium text-gray-700">
-                      Cover photo
-                    </label>
-                    <div
-                      class="
-                        mt-1
-                        border-2 border-gray-300 border-dashed
-                        rounded-md
-                        px-6
-                        pt-5
-                        pb-6
-                        flex
-                        justify-center
-                      "
-                    >
-                      <div class="space-y-1 text-center">
-                        <svg
-                          class="mx-auto h-12 w-12 text-gray-400"
-                          stroke="currentColor"
-                          fill="none"
-                          viewBox="0 0 48 48"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                        <div class="flex text-sm text-gray-600">
-                          <label
-                            for="file-upload"
-                            class="
-                              relative
-                              cursor-pointer
-                              bg-white
-                              rounded-md
-                              font-medium
-                              text-indigo-600
-                              hover:text-indigo-500
-                              focus-within:outline-none
-                              focus-within:ring-2
-                              focus-within:ring-offset-2
-                              focus-within:ring-indigo-500
-                            "
-                          >
-                            <span>Upload a file</span>
-                            <input
-                              id="file-upload"
-                              name="file-upload"
-                              type="file"
-                              class="sr-only"
-                            />
-                          </label>
-                          <p class="pl-1">or drag and drop</p>
-                        </div>
-                        <p class="text-xs text-gray-500">
-                          PNG, JPG, GIF up to 10MB
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                <button
-                  type="submit"
-                  class="
-                    bg-indigo-600
-                    border border-transparent
-                    rounded-md
-                    shadow-sm
-                    py-2
-                    px-4
-                    inline-flex
-                    justify-center
-                    text-sm
-                    font-medium
-                    text-white
-                    hover:bg-indigo-700
-                    focus:outline-none
-                    focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-                  "
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <form action="#" method="POST">
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
+          <form v-on:submit.prevent action="#" method="POST">
+            <div
+              v-if="navigation[0].current"
+              class="shadow sm:rounded-md sm:overflow-hidden"
+            >
               <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div>
                   <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -303,6 +124,34 @@
                 </div>
 
                 <div class="grid grid-cols-6 gap-6">
+                  <div class="col-span-6 sm:col-span-4">
+                    <label
+                      for="company-name"
+                      class="block text-sm font-medium text-gray-700"
+                      >Company name</label
+                    >
+                    <input
+                      type="text"
+                      name="company-name"
+                      id="company-name"
+                      autocomplete="organization"
+                      class="
+                        mt-1
+                        block
+                        w-full
+                        border border-gray-300
+                        rounded-md
+                        shadow-sm
+                        py-2
+                        px-3
+                        focus:outline-none
+                        focus:ring-blue-500
+                        focus:border-blue-500
+                        sm:text-sm
+                      "
+                    />
+                  </div>
+
                   <div class="col-span-6 sm:col-span-3">
                     <label
                       for="first-name"
@@ -324,8 +173,8 @@
                         py-2
                         px-3
                         focus:outline-none
-                        focus:ring-indigo-500
-                        focus:border-indigo-500
+                        focus:ring-blue-500
+                        focus:border-blue-500
                         sm:text-sm
                       "
                     />
@@ -352,23 +201,23 @@
                         py-2
                         px-3
                         focus:outline-none
-                        focus:ring-indigo-500
-                        focus:border-indigo-500
+                        focus:ring-blue-500
+                        focus:border-blue-500
                         sm:text-sm
                       "
                     />
                   </div>
 
-                  <div class="col-span-6 sm:col-span-4">
+                  <div class="col-span-6 sm:col-span-4 lg:col-span-4">
                     <label
-                      for="email-address"
+                      for="email-add"
                       class="block text-sm font-medium text-gray-700"
                       >Email address</label
                     >
                     <input
                       type="text"
-                      name="email-address"
-                      id="email-address"
+                      name="email-add"
+                      id="email-add"
                       autocomplete="email"
                       class="
                         mt-1
@@ -380,56 +229,24 @@
                         py-2
                         px-3
                         focus:outline-none
-                        focus:ring-indigo-500
-                        focus:border-indigo-500
+                        focus:ring-blue-500
+                        focus:border-blue-500
                         sm:text-sm
                       "
                     />
                   </div>
 
-                  <div class="col-span-6 sm:col-span-3">
+                  <div class="col-span-3 sm:col-span-3">
                     <label
-                      for="country"
+                      for="password"
                       class="block text-sm font-medium text-gray-700"
-                      >Country / Region</label
-                    >
-                    <select
-                      id="country"
-                      name="country"
-                      autocomplete="country"
-                      class="
-                        mt-1
-                        block
-                        w-full
-                        bg-white
-                        border border-gray-300
-                        rounded-md
-                        shadow-sm
-                        py-2
-                        px-3
-                        focus:outline-none
-                        focus:ring-indigo-500
-                        focus:border-indigo-500
-                        sm:text-sm
-                      "
-                    >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </select>
-                  </div>
-
-                  <div class="col-span-6">
-                    <label
-                      for="street-address"
-                      class="block text-sm font-medium text-gray-700"
-                      >Street address</label
+                      >Password</label
                     >
                     <input
-                      type="text"
-                      name="street-address"
-                      id="street-address"
-                      autocomplete="street-address"
+                      type="password"
+                      name="password"
+                      id="password"
+                      autocomplete="new-password"
                       class="
                         mt-1
                         block
@@ -440,23 +257,24 @@
                         py-2
                         px-3
                         focus:outline-none
-                        focus:ring-indigo-500
-                        focus:border-indigo-500
+                        focus:ring-blue-500
+                        focus:border-blue-500
                         sm:text-sm
                       "
                     />
                   </div>
 
-                  <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                  <div class="col-span-3 sm:col-span-3">
                     <label
-                      for="city"
+                      for="confirm-password"
                       class="block text-sm font-medium text-gray-700"
-                      >City</label
+                      >Confirm Password</label
                     >
                     <input
-                      type="text"
-                      name="city"
-                      id="city"
+                      type="password"
+                      name="confirm-password"
+                      id="confirm-password"
+                      autocomplete="new-password"
                       class="
                         mt-1
                         block
@@ -467,51 +285,87 @@
                         py-2
                         px-3
                         focus:outline-none
-                        focus:ring-indigo-500
-                        focus:border-indigo-500
+                        focus:ring-blue-500
+                        focus:border-blue-500
                         sm:text-sm
                       "
                     />
                   </div>
 
-                  <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                      for="state"
-                      class="block text-sm font-medium text-gray-700"
-                      >State / Province</label
-                    >
-                    <input
-                      type="text"
-                      name="state"
-                      id="state"
-                      class="
-                        mt-1
-                        block
-                        w-full
-                        border border-gray-300
-                        rounded-md
-                        shadow-sm
-                        py-2
-                        px-3
-                        focus:outline-none
-                        focus:ring-indigo-500
-                        focus:border-indigo-500
-                        sm:text-sm
-                      "
-                    />
+                  <div class="col-span-3 sm:col-span-6 lg:col-span-3">
+                    <h2 class="text-sm font-medium text-gray-900">
+                      Please select your company type
+                    </h2>
+                    <RadioGroup v-model="selectedCompanyType">
+                      <RadioGroupLabel class="sr-only">
+                        Company Type
+                      </RadioGroupLabel>
+                      <div
+                        class="relative bg-white rounded-md -space-y-px my-2"
+                      >
+                        <RadioGroupOption
+                          as="template"
+                          v-for="(companyType, companyTypeIdx) in companyTypes"
+                          :key="companyType.name"
+                          :value="companyType"
+                          v-slot="{ checked, active }"
+                        >
+                          <div
+                            :class="[
+                              companyTypeIdx === 0
+                                ? 'rounded-tl-md rounded-tr-md'
+                                : '',
+                              companyTypeIdx === companyType.length - 1
+                                ? 'rounded-bl-md rounded-br-md'
+                                : '',
+                              checked
+                                ? 'bg-blue-50 border-blue-200 z-10'
+                                : 'border-gray-200',
+                              'relative border p-4 flex flex-col cursor-pointer md:pl-4 md:pr-6 md:grid md:grid-cols-3 focus:outline-none',
+                            ]"
+                          >
+                            <div class="flex items-center text-sm">
+                              <span
+                                :class="[
+                                  checked
+                                    ? 'bg-blue-600 border-transparent'
+                                    : 'bg-white border-gray-300',
+                                  active
+                                    ? 'ring-2 ring-offset-2 ring-blue-500'
+                                    : '',
+                                  'h-4 w-4 rounded-full border flex items-center justify-center',
+                                ]"
+                                aria-hidden="true"
+                              >
+                                <span
+                                  class="rounded-full bg-white w-1.5 h-1.5"
+                                />
+                              </span>
+                              <RadioGroupLabel
+                                as="span"
+                                :class="[
+                                  checked ? 'text-blue-900' : 'text-gray-900',
+                                  'ml-3 font-medium',
+                                ]"
+                                >{{ companyType.name }}</RadioGroupLabel
+                              >
+                            </div>
+                          </div>
+                        </RadioGroupOption>
+                      </div>
+                    </RadioGroup>
                   </div>
-
-                  <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                  <div class="col-span-3 sm:col-span-6 lg:col-span-3">
                     <label
-                      for="postal-code"
+                      for="contact-number"
                       class="block text-sm font-medium text-gray-700"
-                      >ZIP / Postal</label
+                      >Contact Number</label
                     >
                     <input
                       type="text"
-                      name="postal-code"
-                      id="postal-code"
-                      autocomplete="postal-code"
+                      name="contact-number"
+                      id="contact-number"
+                      autocomplete="tel"
                       class="
                         mt-1
                         block
@@ -522,8 +376,8 @@
                         py-2
                         px-3
                         focus:outline-none
-                        focus:ring-indigo-500
-                        focus:border-indigo-500
+                        focus:ring-blue-500
+                        focus:border-blue-500
                         sm:text-sm
                       "
                     />
@@ -532,9 +386,10 @@
               </div>
               <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                 <button
+                  @click="nextStep()"
                   type="submit"
                   class="
-                    bg-indigo-600
+                    bg-blue-600
                     border border-transparent
                     rounded-md
                     shadow-sm
@@ -545,196 +400,155 @@
                     text-sm
                     font-medium
                     text-white
-                    hover:bg-indigo-700
+                    hover:bg-blue-700
                     focus:outline-none
-                    focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+                    focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
                   "
                 >
-                  Save
+                  Next
                 </button>
               </div>
             </div>
-          </form>
 
-          <form action="#" method="POST">
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
+            <div
+              v-if="navigation[1].current"
+              class="shadow sm:rounded-md sm:overflow-hidden"
+            >
               <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                 <div>
                   <h3 class="text-lg leading-6 font-medium text-gray-900">
-                    Notifications
+                    How many staterooms do you need?
                   </h3>
-                  <p class="mt-1 text-sm text-gray-500">
-                    Provide basic informtion about the job. Be specific with the
-                    job title.
-                  </p>
+                  <!-- <p class="mt-1 text-sm text-gray-500">
+                          Maximum 2 staterooms per airline.
+                        </p> -->
                 </div>
 
-                <fieldset>
-                  <legend class="text-base font-medium text-gray-900">
-                    By Email
-                  </legend>
-                  <div class="mt-4 space-y-4">
-                    <div class="flex items-start">
-                      <div class="h-5 flex items-center">
-                        <input
-                          id="comments"
-                          name="comments"
-                          type="checkbox"
-                          class="
-                            focus:ring-indigo-500
-                            h-4
-                            w-4
-                            text-indigo-600
-                            border-gray-300
-                            rounded
-                          "
-                        />
-                      </div>
-                      <div class="ml-3 text-sm">
-                        <label for="comments" class="font-medium text-gray-700"
-                          >Comments</label
-                        >
-                        <p class="text-gray-500">
-                          Get notified when someones posts a comment on a
-                          posting.
-                        </p>
-                      </div>
+                <div class="">
+                  <div class="mt-10">
+                    <div class="flex items-center justify-between">
+                      <h3 class="text-sm text-gray-900 font-medium">
+                        Select number of staterooms
+                      </h3>
+                      <p class="text-sm font-medium text-yellow-500">
+                        Maximum 2 staterooms per airline.*
+                      </p>
                     </div>
-                    <div>
-                      <div class="flex items-start">
-                        <div class="h-5 flex items-center">
-                          <input
-                            id="candidates"
-                            name="candidates"
-                            type="checkbox"
-                            class="
-                              focus:ring-indigo-500
-                              h-4
-                              w-4
-                              text-indigo-600
-                              border-gray-300
-                              rounded
-                            "
-                          />
-                        </div>
-                        <div class="ml-3 text-sm">
-                          <label
-                            for="candidates"
-                            class="font-medium text-gray-700"
-                            >Candidates</label
+
+                    <RadioGroup v-model="selectedRoom" class="mt-4">
+                      <RadioGroupLabel class="sr-only">
+                        Number of rooms
+                      </RadioGroupLabel>
+                      <div
+                        class="
+                          grid grid-cols-4
+                          gap-4
+                          sm:grid-cols-8
+                          lg:grid-cols-4
+                        "
+                      >
+                        <RadioGroupOption
+                          as="template"
+                          v-for="room in rooms"
+                          :key="room.name"
+                          :value="room"
+                          :disabled="!room.inStock"
+                          v-slot="{ active, checked }"
+                        >
+                          <div
+                            :class="[
+                              room.inStock
+                                ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
+                                : 'bg-gray-50 text-gray-200 cursor-not-allowed',
+                              active ? 'ring-2 ring-blue-500' : '',
+                              'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6',
+                            ]"
                           >
-                          <p class="text-gray-500">
-                            Get notified when a candidate applies for a job.
-                          </p>
-                        </div>
+                            <RadioGroupLabel as="p">
+                              {{ room.name }}
+                            </RadioGroupLabel>
+                            <div
+                              v-if="room.inStock"
+                              :class="[
+                                active ? 'border' : 'border-2',
+                                checked
+                                  ? 'border-blue-500'
+                                  : 'border-transparent',
+                                'absolute -inset-px rounded-md pointer-events-none',
+                              ]"
+                              aria-hidden="true"
+                            />
+                            <div
+                              v-else
+                              aria-hidden="true"
+                              class="
+                                absolute
+                                -inset-px
+                                rounded-md
+                                border-2 border-gray-200
+                                pointer-events-none
+                              "
+                            >
+                              <svg
+                                class="
+                                  absolute
+                                  inset-0
+                                  w-full
+                                  h-full
+                                  text-gray-200
+                                  stroke-2
+                                "
+                                viewBox="0 0 100 100"
+                                preserveAspectRatio="none"
+                                stroke="currentColor"
+                              >
+                                <line
+                                  x1="0"
+                                  y1="100"
+                                  x2="100"
+                                  y2="0"
+                                  vector-effect="non-scaling-stroke"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </RadioGroupOption>
                       </div>
-                    </div>
-                    <div>
-                      <div class="flex items-start">
-                        <div class="h-5 flex items-center">
-                          <input
-                            id="offers"
-                            name="offers"
-                            type="checkbox"
-                            class="
-                              focus:ring-indigo-500
-                              h-4
-                              w-4
-                              text-indigo-600
-                              border-gray-300
-                              rounded
-                            "
-                          />
-                        </div>
-                        <div class="ml-3 text-sm">
-                          <label for="offers" class="font-medium text-gray-700"
-                            >Offers</label
-                          >
-                          <p class="text-gray-500">
-                            Get notified when a candidate accepts or rejects an
-                            offer.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    </RadioGroup>
                   </div>
-                </fieldset>
-                <fieldset class="mt-6">
-                  <legend class="text-base font-medium text-gray-900">
-                    Push Notifications
-                  </legend>
-                  <p class="text-sm text-gray-500">
-                    These are delivered via SMS to your mobile phone.
-                  </p>
-                  <div class="mt-4 space-y-4">
-                    <div class="flex items-center">
-                      <input
-                        id="push-everything"
-                        name="push-notifications"
-                        type="radio"
-                        class="
-                          focus:ring-indigo-500
-                          h-4
-                          w-4
-                          text-indigo-600
-                          border-gray-300
-                        "
-                      />
-                      <label for="push-everything" class="ml-3">
-                        <span class="block text-sm font-medium text-gray-700"
-                          >Everything</span
-                        >
-                      </label>
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="push-email"
-                        name="push-notifications"
-                        type="radio"
-                        class="
-                          focus:ring-indigo-500
-                          h-4
-                          w-4
-                          text-indigo-600
-                          border-gray-300
-                        "
-                      />
-                      <label for="push-email" class="ml-3">
-                        <span class="block text-sm font-medium text-gray-700"
-                          >Same as email</span
-                        >
-                      </label>
-                    </div>
-                    <div class="flex items-center">
-                      <input
-                        id="push-nothing"
-                        name="push-notifications"
-                        type="radio"
-                        class="
-                          focus:ring-indigo-500
-                          h-4
-                          w-4
-                          text-indigo-600
-                          border-gray-300
-                        "
-                      />
-                      <label for="push-nothing" class="ml-3">
-                        <span class="block text-sm font-medium text-gray-700"
-                          >No push notifications</span
-                        >
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
+                </div>
               </div>
-              <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+              <div
+                class="flex justify-end px-4 py-3 bg-gray-50 text-right sm:px-6"
+              >
+                <button
+                  @click="prevStep()"
+                  type="button"
+                  class="
+                    bg-white
+                    py-2
+                    px-4
+                    border border-gray-300
+                    rounded-md
+                    shadow-sm
+                    text-sm
+                    font-medium
+                    text-gray-700
+                    hover:bg-gray-50
+                    focus:outline-none
+                    focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                  "
+                >
+                  Prev
+                </button>
                 <button
                   type="submit"
                   class="
-                    bg-indigo-600
+                    bg-blue-600
                     border border-transparent
                     rounded-md
                     shadow-sm
+                    ml-3
                     py-2
                     px-4
                     inline-flex
@@ -742,12 +556,12 @@
                     text-sm
                     font-medium
                     text-white
-                    hover:bg-indigo-700
+                    hover:bg-blue-700
                     focus:outline-none
-                    focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600
+                    focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
                   "
                 >
-                  Save
+                  Next
                 </button>
               </div>
             </div>
@@ -760,33 +574,120 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import { RadioGroup, RadioGroupLabel, RadioGroupOption } from "@headlessui/vue";
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import HeaderComponent from "@/components/HeaderComponent";
 import FooterComponent from "@/components/FooterComponent";
+
 import {
-  CreditCardIcon,
-  KeyIcon,
-  UserCircleIcon,
-  UserGroupIcon,
-  ViewGridAddIcon,
+  CalendarIcon,
+  ChartBarIcon,
+  FolderIcon,
+  HomeIcon,
+  InboxIcon,
+  UsersIcon,
 } from "@heroicons/vue/outline";
 
 const navigation = [
-  { name: "Account", href: "#", icon: UserCircleIcon, current: true },
-  { name: "Password", href: "#", icon: KeyIcon, current: false },
-  { name: "Plan & Billing", href: "#", icon: CreditCardIcon, current: false },
-  { name: "Team", href: "#", icon: UserGroupIcon, current: false },
-  { name: "Integrations", href: "#", icon: ViewGridAddIcon, current: false },
+  { name: "Registration", icon: HomeIcon, current: true, href: "#" },
+
+  {
+    name: "Stateroom",
+    icon: FolderIcon,
+    current: false,
+    children: [
+      { name: "Room 1", href: "#" },
+      { name: "Room 2", href: "#" },
+      { name: "Room 3", href: "#" },
+      { name: "Room 4", href: "#" },
+    ],
+  },
+  {
+    name: "Guest Info",
+    icon: CalendarIcon,
+    current: false,
+    children: [
+      { name: "Room 1", href: "#" },
+      { name: "Room 2", href: "#" },
+      { name: "Room 3", href: "#" },
+      { name: "Room 4", href: "#" },
+    ],
+  },
+  {
+    name: "Documents",
+    icon: InboxIcon,
+    current: false,
+  },
+  {
+    name: "Reports",
+    icon: ChartBarIcon,
+    current: false,
+    children: [
+      { name: "Overview", href: "#" },
+      { name: "Members", href: "#" },
+      { name: "Calendar", href: "#" },
+      { name: "Settings", href: "#" },
+    ],
+  },
 ];
+
+const rooms = [
+  { name: "1", inStock: true },
+  { name: "2", inStock: true },
+  { name: "3", inStock: false },
+  { name: "4", inStock: false },
+  { name: "5", inStock: false },
+  { name: "6", inStock: false },
+  { name: "7", inStock: false },
+  { name: "8", inStock: false },
+];
+const companyTypes = [{ name: "Repair-Center" }, { name: "Airlines" }];
 
 export default {
   name: "Register",
+  data() {
+    return {
+      currentStep: 0,
+    };
+  },
+  methods: {
+    nextStep() {
+      navigation[0].current++;
+      console.log(navigation[0].current);
+    },
+    prevStep() {
+      this.currentStep--;
+      console.log(navigation[0].current);
+    },
+  },
   components: {
     HeaderComponent,
     FooterComponent,
+    TabGroup,
+    TabList,
+    Tab,
+    TabPanels,
+    TabPanel,
+    RadioGroup,
+    RadioGroupLabel,
+    RadioGroupOption,
+    Disclosure,
+    DisclosureButton,
+    DisclosurePanel,
   },
   setup() {
+    const selectedCompanyType = ref(companyTypes[0]);
+    const selectedRoom = ref(rooms[0]);
+
     return {
       navigation,
+      companyTypes,
+      selectedCompanyType,
+      selectedRoom,
+      rooms,
+      companyTypes,
     };
   },
 };

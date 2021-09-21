@@ -14,7 +14,7 @@
         "
       >
         <div class="flex justify-start lg:w-0 lg:flex-1">
-          <a href="#">
+          <a href="/">
             <span class="sr-only">Summit at Sea</span>
             <img
               class="h-16 w-auto sm:h-12"
@@ -318,7 +318,7 @@
             </transition>
           </Popover>
           <a
-            href="#"
+            href="/contact-us"
             class="text-base font-medium text-gray-500 hover:text-gray-900"
           >
             Contact us
@@ -415,7 +415,10 @@
             </transition>
           </Popover>
         </PopoverGroup>
-        <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+        <div
+          v-if="user"
+          class="hidden md:flex items-center justify-end md:flex-1 lg:w-0"
+        >
           <a
             href="#"
             class="
@@ -429,7 +432,7 @@
             Sign in
           </a>
           <a
-            href="#"
+            href="/register"
             class="
               ml-8
               whitespace-nowrap
@@ -466,6 +469,7 @@
         focus
         class="
           absolute
+          z-50
           top-0
           inset-x-0
           p-2
@@ -488,8 +492,8 @@
             <div class="flex items-center justify-between">
               <div>
                 <img
-                  class="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                  class="h-10 w-auto"
+                  src="https://www.145summitatsea.com/assets/img/summit_logo_big.png"
                   alt="Workflow"
                 />
               </div>
@@ -537,17 +541,17 @@
           <div class="py-6 px-5 space-y-6">
             <div class="grid grid-cols-2 gap-y-4 gap-x-8">
               <a
-                href="#"
+                href="/state-rooms"
                 class="text-base font-medium text-gray-900 hover:text-gray-700"
               >
-                Pricing
+                State rooms
               </a>
 
               <a
-                href="#"
+                href="/contact-us"
                 class="text-base font-medium text-gray-900 hover:text-gray-700"
               >
-                Docs
+                Contact us
               </a>
               <a
                 v-for="item in resources"
@@ -668,21 +672,21 @@ const resources = [
     name: "Promo sponsorship",
     description:
       "Reach your ideal audience & generate leads using Promotional sponsorship ",
-    href: "#",
+    href: "/promo-sponsorships",
     icon: NewspaperIcon,
   },
   {
     name: "Raffle sponsorship",
     description:
       "100% of the proceeds from these Raffle Sponsorships will be used to pay for a scholarship",
-    href: "#",
+    href: "/raffle-sponsorships",
     icon: TicketIcon,
   },
   {
     name: "Static sponsorship",
     description:
       "Your company logo will be prominently displayed on a monitor inside one of the four meeting rooms",
-    href: "#",
+    href: "/static-sponsorships",
     icon: PhotographIcon,
   },
 ];
@@ -733,6 +737,11 @@ const recentPosts = [
 ];
 
 export default {
+  data() {
+    return {
+      user: true,
+    };
+  },
   components: {
     Popover,
     PopoverButton,
