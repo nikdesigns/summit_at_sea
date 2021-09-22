@@ -84,6 +84,7 @@
                 </p>
 
                 <div
+                  v-if="!user"
                   class="
                     space-y-4
                     sm:space-y-0
@@ -265,6 +266,11 @@ const solutions = [
 ];
 
 export default {
+  data() {
+    return {
+      user: true,
+    };
+  },
   components: {
     Popover,
     PopoverButton,

@@ -34,7 +34,7 @@
         A conference like no other
       </p>
       <div class="mt-12">
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-2">
           <div v-for="feature in features" :key="feature.name" class="pt-6">
             <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8">
               <div class="-mt-6">

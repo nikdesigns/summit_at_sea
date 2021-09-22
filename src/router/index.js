@@ -7,6 +7,12 @@ import PromoSponsorships from '../views/PromoSponsorships.vue';
 import RaffleSponsorships from '../views/RaffleSponsorships.vue';
 import StaticSponsorships from '../views/StaticSponsorships.vue';
 import ViewProduct from '../views/ViewProduct.vue';
+import TradeShowExhibit from '../views/TradeShowExhibit.vue';
+import AirlineParticipation from '../views/AirlineParticipation.vue';
+import ShopPresentationTermsCondition from '../views/ShopPresentationTermsCondition.vue';
+import ShopParticipation from '../views/ShopParticipation.vue';
+import CodeOfConduct from '../views/CodeOfConduct.vue';
+import CancellationTransfer from '../views/CancellationTransfer.vue';
 
 const routes = [
   {
@@ -48,6 +54,41 @@ const routes = [
     path: '/view-product',
     name: 'view-product',
     component: ViewProduct,
+  },
+  {
+    path: '/trade-show-exhibit',
+    name: 'trade-show-exhibit',
+    component: TradeShowExhibit,
+  },
+  {
+    path: '/airline-participation',
+    name: 'airline-participation',
+    component: AirlineParticipation,
+  },
+  {
+    path: '/shop-presentation-terms-and-condition',
+    name: 'shop-presentation-terms-and-condition',
+    component: ShopPresentationTermsCondition,
+  },
+  {
+    path: '/shop-participation',
+    name: 'shop-participation',
+    component: ShopParticipation,
+  },
+  {
+    path: '/code-of-conduct',
+    name: 'code-of-conduct',
+    component: CodeOfConduct,
+  },
+  {
+    path: '/cancellation-and-transfer',
+    name: 'cancellation-and-transfer',
+    component: CancellationTransfer,
+  },
+  {
+    path: '/stateroom',
+    name: 'stateroom',
+    component: Staterooms,
   },
 ];
 

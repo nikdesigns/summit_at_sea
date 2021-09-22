@@ -104,7 +104,7 @@
           <div class="border-t border-gray-200 mt-10 pt-10">
             <h3 class="text-sm font-medium text-gray-900">Features:</h3>
             <div class="mt-4 prose prose-sm text-gray-500">
-              <ul class="list-disc" role="list">
+              <ul class="list-none" role="list">
                 <li v-for="highlight in product.highlights" :key="highlight">
                   {{ highlight }}
                 </li>

@@ -1,5 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
+  <LoginModalComponent v-if="showLoginModal" />
   <Popover class="relative bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div
@@ -48,7 +49,7 @@
             <PopoverButton
               :class="[
                 open ? 'text-gray-900' : 'text-gray-500',
-                'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
+                'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none ',
               ]"
             >
               <span>Summit</span>
@@ -133,7 +134,7 @@
                       </div>
                     </a>
                   </div>
-                  <div
+                  <!-- <div
                     class="
                       px-5
                       py-5
@@ -171,14 +172,14 @@
                         <span class="ml-3">{{ item.name }}</span>
                       </a>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </PopoverPanel>
             </transition>
           </Popover>
 
           <a
-            href="#"
+            href="/staterooms"
             class="text-base font-medium text-gray-500 hover:text-gray-900"
           >
             State rooms
@@ -188,7 +189,7 @@
             <PopoverButton
               :class="[
                 open ? 'text-gray-900' : 'text-gray-500',
-                'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
+                'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none ',
               ]"
             >
               <span>Sponsorships</span>
@@ -327,7 +328,7 @@
             <PopoverButton
               :class="[
                 open ? 'text-gray-900' : 'text-gray-500',
-                'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
+                'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none ',
               ]"
             >
               <span>Policies</span>
@@ -388,7 +389,8 @@
                       :href="item.href"
                       class="
                         -m-3
-                        p-3
+                        py-1
+                        px-3
                         flex
                         items-start
                         rounded-lg
@@ -418,6 +420,7 @@
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
           <div class="" v-if="!user">
             <a
+              @click="showLoginModal = !showLoginModal"
               href="#"
               class="
                 whitespace-nowrap
@@ -429,6 +432,7 @@
             >
               Sign in
             </a>
+
             <a
               href="/register"
               class="
@@ -460,13 +464,109 @@
               <div class="flex items-center lg:ml-8">
                 <div class="flex space-x-8">
                   <div class="flex">
-                    <a
-                      href="#"
-                      class="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                    >
-                      <span class="sr-only">Account</span>
-                      <UserIcon class="w-6 h-6" aria-hidden="true" />
-                    </a>
+                    <Menu as="div" class="relative inline-block text-left">
+                      <div>
+                        <MenuButton class="flex justify-center">
+                          <a
+                            href="#"
+                            class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                          >
+                            <span class="sr-only">Account</span>
+                            <UserIcon class="w-6 h-6" aria-hidden="true" />
+                          </a>
+                        </MenuButton>
+                      </div>
+
+                      <transition
+                        enter-active-class="transition ease-out duration-100"
+                        enter-from-class="transform opacity-0 scale-95"
+                        enter-to-class="transform opacity-100 scale-100"
+                        leave-active-class="transition ease-in duration-75"
+                        leave-from-class="transform opacity-100 scale-100"
+                        leave-to-class="transform opacity-0 scale-95"
+                      >
+                        <MenuItems
+                          class="
+                            origin-top-right
+                            absolute
+                            right-0
+                            mt-2
+                            w-56
+                            rounded-md
+                            shadow-lg
+                            bg-white
+                            ring-1 ring-black ring-opacity-5
+                            divide-y divide-gray-100
+                            focus:outline-none
+                            z-10
+                          "
+                        >
+                          <div class="px-4 py-3">
+                            <p class="text-sm">Signed in as</p>
+                            <p
+                              class="text-sm font-medium text-gray-900 truncate"
+                            >
+                              tom@example.com
+                            </p>
+                          </div>
+                          <div class="py-1">
+                            <MenuItem v-slot="{ active }">
+                              <a
+                                href="#"
+                                :class="[
+                                  active
+                                    ? 'bg-gray-100 text-gray-900'
+                                    : 'text-gray-700',
+                                  'block px-4 py-2 text-sm',
+                                ]"
+                                >Account settings</a
+                              >
+                            </MenuItem>
+                            <MenuItem v-slot="{ active }">
+                              <a
+                                href="#"
+                                :class="[
+                                  active
+                                    ? 'bg-gray-100 text-gray-900'
+                                    : 'text-gray-700',
+                                  'block px-4 py-2 text-sm',
+                                ]"
+                                >Support</a
+                              >
+                            </MenuItem>
+                            <MenuItem v-slot="{ active }">
+                              <a
+                                href="#"
+                                :class="[
+                                  active
+                                    ? 'bg-gray-100 text-gray-900'
+                                    : 'text-gray-700',
+                                  'block px-4 py-2 text-sm',
+                                ]"
+                                >License</a
+                              >
+                            </MenuItem>
+                          </div>
+                          <div class="py-1">
+                            <form method="POST" action="#">
+                              <MenuItem v-slot="{ active }">
+                                <button
+                                  type="submit"
+                                  :class="[
+                                    active
+                                      ? 'bg-gray-100 text-gray-900'
+                                      : 'text-gray-700',
+                                    'block w-full text-left px-4 py-2 text-sm',
+                                  ]"
+                                >
+                                  Sign out
+                                </button>
+                              </MenuItem>
+                            </form>
+                          </div>
+                        </MenuItems>
+                      </transition>
+                    </Menu>
                   </div>
                 </div>
 
@@ -655,6 +755,10 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
 } from "@headlessui/vue";
 import {
   BookmarkAltIcon,
@@ -687,30 +791,31 @@ import {
   ShoppingBagIcon,
 } from "@heroicons/vue/outline";
 import { ChevronDownIcon } from "@heroicons/vue/solid";
+import LoginModalComponent from "@/components/LoginModalComponent";
 
 const solutions = [
   {
     name: "Event Details",
     description:
-      "Get a better understanding of where your traffic is coming from.",
+      "We're hosting the conference aboard Royal Caribbean's Mariner of the Seas cruise ship",
     href: "#",
     icon: StarIcon,
   },
   {
     name: "Comparison",
-    description: "Speak directly to your customers in a more meaningful way.",
+    description: "145 Summit at sea vs others!",
     href: "#",
     icon: ChartBarIcon,
   },
   {
     name: "Schedule",
-    description: "Your customers' data will be safe and secure.",
+    description: "You're going to love what we have planned for Summit at Sea!",
     href: "#",
     icon: CalendarIcon,
   },
   {
     name: "Shore Excursion",
-    description: "Connect with third-party tools that you're already using.",
+    description: "Cozumel is ideal for unique adventures",
     href: "#",
     icon: SunIcon,
   },
@@ -746,37 +851,37 @@ const policies = [
   {
     name: "Trade show exhibit policies",
     description: "",
-    href: "#",
+    href: "/trade-show-exhibit",
     icon: SwitchVerticalIcon,
   },
   {
     name: "Airline participation policy",
     description: "",
-    href: "#",
+    href: "/airline-participation",
     icon: PaperAirplaneIcon,
   },
   {
     name: "Shop presentation terms and conditions",
     description: "",
-    href: "#",
+    href: "/shop-presentation-terms-and-condition",
     icon: PresentationChartLineIcon,
   },
   {
     name: "Shop participation policy",
     description: "",
-    href: "#",
+    href: "/shop-participation",
     icon: OfficeBuildingIcon,
   },
   {
     name: "Code of conduct",
     description: "",
-    href: "#",
+    href: "/code-of-conduct",
     icon: CodeIcon,
   },
   {
     name: "Cancellation and transfer policy",
     description: "",
-    href: "#",
+    href: "/cancellation-and-transfer",
     icon: BanIcon,
   },
 ];
@@ -792,6 +897,7 @@ export default {
   data() {
     return {
       user: true,
+      showLoginModal: false,
     };
   },
   components: {
@@ -819,6 +925,11 @@ export default {
     PhotographIcon,
     UserIcon,
     ShoppingBagIcon,
+    LoginModalComponent,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuItems,
   },
   setup() {
     return {
