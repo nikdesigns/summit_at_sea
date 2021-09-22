@@ -389,7 +389,7 @@
                       :href="item.href"
                       class="
                         -m-3
-                        py-1
+                        py-2
                         px-3
                         flex
                         items-start
@@ -578,30 +578,214 @@
             </div>
           </div>
           <div class="flow-root">
-            <a href="#" class="group -m-2 p-2 flex items-center">
-              <ShoppingBagIcon
-                :class="[!user ? 'ml-5' : '']"
-                class="
-                  flex-shrink-0
-                  h-6
-                  w-6
-                  text-gray-400
-                  group-hover:text-gray-500
-                "
-                aria-hidden="true"
-              />
-              <span
-                class="
-                  ml-2
-                  text-sm
-                  font-medium
-                  text-gray-700
-                  group-hover:text-gray-800
-                "
-                >0</span
+            <Popover class="relative" v-slot="{ open }">
+              <PopoverButton
+                :class="[open ? 'text-gray-900' : 'text-gray-500']"
               >
-              <span class="sr-only">items in cart, view bag</span>
-            </a>
+                <a href="#" class="group -m-2 p-3 flex items-center">
+                  <ShoppingBagIcon
+                    :class="[!user ? 'ml-5' : '']"
+                    class="
+                      flex-shrink-0
+                      h-6
+                      w-6
+                      text-gray-400
+                      group-hover:text-gray-500
+                    "
+                    aria-hidden="true"
+                  />
+                  <span
+                    class="
+                      text-sm
+                      ml-1
+                      font-medium
+                      text-gray-100
+                      hover:bg-green-600
+                      bg-green-500
+                      rounded-full
+                      h-6
+                      w-6
+                      flex
+                      items-center
+                      justify-center
+                    "
+                    >2</span
+                  >
+                  <span class="sr-only">items in cart, view bag</span>
+                </a>
+              </PopoverButton>
+
+              <transition
+                enter-active-class="transition ease-out duration-200"
+                enter-from-class="opacity-0 translate-y-1"
+                enter-to-class="opacity-100 translate-y-0"
+                leave-active-class="transition ease-in duration-150"
+                leave-from-class="opacity-100 translate-y-0"
+                leave-to-class="opacity-0 translate-y-1"
+              >
+                <PopoverPanel
+                  class="
+                    absolute
+                    z-10
+                    right-0
+                    mt-3
+                    px-2
+                    w-screen
+                    max-w-md
+                    sm:px-0
+                  "
+                >
+                  <div
+                    class="
+                      rounded-lg
+                      shadow-lg
+                      ring-1 ring-black ring-opacity-5
+                      overflow-hidden
+                    "
+                  >
+                    <div
+                      class="
+                        relative
+                        grid
+                        gap-6
+                        bg-white
+                        px-5
+                        py-6
+                        sm:gap-8
+                        sm:p-8
+                      "
+                    >
+                      <div>
+                        <div class="mt-8">
+                          <div class="flow-root">
+                            <ul
+                              role="list"
+                              class="-my-6 divide-y divide-gray-200"
+                            >
+                              <li
+                                v-for="product in products"
+                                :key="product.id"
+                                class="py-6 flex"
+                              >
+                                <div
+                                  class="
+                                    flex-shrink-0
+                                    w-24
+                                    h-24
+                                    border border-gray-200
+                                    rounded-md
+                                    overflow-hidden
+                                  "
+                                >
+                                  <img
+                                    :src="product.imageSrc"
+                                    :alt="product.imageAlt"
+                                    class="
+                                      w-full
+                                      h-full
+                                      object-center object-cover
+                                    "
+                                  />
+                                </div>
+
+                                <div class="ml-4 flex-1 flex flex-col">
+                                  <div>
+                                    <div
+                                      class="
+                                        flex
+                                        justify-between
+                                        text-base
+                                        font-medium
+                                        text-gray-900
+                                      "
+                                    >
+                                      <h3>
+                                        <a :href="product.href">
+                                          {{ product.name }}
+                                        </a>
+                                      </h3>
+                                      <p class="ml-4">
+                                        {{ product.price }}
+                                      </p>
+                                    </div>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                      {{ product.color }}
+                                    </p>
+                                  </div>
+                                  <div
+                                    class="
+                                      flex-1 flex
+                                      items-end
+                                      justify-between
+                                      text-sm
+                                    "
+                                  >
+                                    <p class="text-gray-500">
+                                      Qty {{ product.quantity }}
+                                    </p>
+
+                                    <div class="flex">
+                                      <button
+                                        type="button"
+                                        class="
+                                          font-medium
+                                          text-indigo-600
+                                          hover:text-indigo-500
+                                        "
+                                      >
+                                        Remove
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="py-6 px-4 sm:px-6">
+                          <div
+                            class="
+                              flex
+                              justify-between
+                              text-base
+                              font-medium
+                              text-gray-900
+                            "
+                          >
+                            <p>Subtotal</p>
+                            <p>$262.00</p>
+                          </div>
+                          <p class="mt-0.5 text-sm text-gray-500">
+                            Taxes calculated at checkout.
+                          </p>
+                          <div class="mt-6">
+                            <a
+                              href="#"
+                              class="
+                                flex
+                                justify-center
+                                items-center
+                                px-6
+                                py-3
+                                border border-transparent
+                                rounded-md
+                                shadow-sm
+                                text-base
+                                font-medium
+                                text-white
+                                bg-blue-600
+                                hover:bg-blue-700
+                              "
+                              >Checkout</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </PopoverPanel>
+              </transition>
+            </Popover>
           </div>
         </div>
       </div>
@@ -788,6 +972,7 @@ import {
   SunIcon,
   PhotographIcon,
   UserIcon,
+  XCircleIcon,
   ShoppingBagIcon,
 } from "@heroicons/vue/outline";
 import { ChevronDownIcon } from "@heroicons/vue/solid";
@@ -892,6 +1077,33 @@ const recentPosts = [
     href: "#",
   },
 ];
+const products = [
+  {
+    id: 1,
+    name: "Throwback Hip Bag",
+    href: "#",
+    color: "Salmon",
+    price: "$90.00",
+    quantity: 1,
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
+    imageAlt:
+      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
+  },
+  {
+    id: 2,
+    name: "Medium Stuff Satchel",
+    href: "#",
+    color: "Blue",
+    price: "$32.00",
+    quantity: 1,
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+    imageAlt:
+      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+  },
+  // More products...
+];
 
 export default {
   data() {
@@ -930,6 +1142,7 @@ export default {
     MenuButton,
     MenuItem,
     MenuItems,
+    XCircleIcon,
   },
   setup() {
     return {
@@ -938,6 +1151,7 @@ export default {
       resources,
       recentPosts,
       policies,
+      products,
     };
   },
 };

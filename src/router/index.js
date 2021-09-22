@@ -13,6 +13,9 @@ import ShopPresentationTermsCondition from '../views/ShopPresentationTermsCondit
 import ShopParticipation from '../views/ShopParticipation.vue';
 import CodeOfConduct from '../views/CodeOfConduct.vue';
 import CancellationTransfer from '../views/CancellationTransfer.vue';
+import Cart from '../views/Cart.vue';
+import Checkout from '../views/Checkout.vue';
+import OrderHistory from '../views/OrderHistory.vue';
 
 const routes = [
   {
@@ -89,6 +92,21 @@ const routes = [
     path: '/stateroom',
     name: 'stateroom',
     component: Staterooms,
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart,
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: Checkout,
+  },
+  {
+    path: '/my-orders',
+    name: 'my-orders',
+    component: OrderHistory,
   },
 ];
 
